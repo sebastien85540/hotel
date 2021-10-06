@@ -2,6 +2,7 @@ package com.m2i.hotelbackend.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name="reservations")
@@ -43,11 +44,11 @@ public class Resa {
      * @param numChambre
      */
     public Resa(Client client, Hotel hotel, Date dateDebut, Date dateFin, int numChambre) {
-        this.client = client;
-        this.hotel = hotel;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.numChambre = numChambre;
+        setClient(client);
+        setHotel(hotel);
+        setDateDebut(dateDebut);
+        setDateFin(dateFin);
+        setNumChambre(numChambre);
     }
 
     public Integer getId() {
@@ -96,5 +97,31 @@ public class Resa {
 
     public void setNumChambre(int numChambre) {
         this.numChambre = numChambre;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Resa)) return false;
+        Resa resa = (Resa) o;
+        return getNumChambre() == resa.getNumChambre() && Objects.equals(getId(), resa.getId()) && Objects.equals(getClient(), resa.getClient()) && Objects.equals(getHotel(), resa.getHotel()) && Objects.equals(getDateDebut(), resa.getDateDebut()) && Objects.equals(getDateFin(), resa.getDateFin());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getClient(), getHotel(), getDateDebut(), getDateFin(), getNumChambre());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Resa{");
+        sb.append("id=").append(id);
+        sb.append(", client=").append(client);
+        sb.append(", hotel=").append(hotel);
+        sb.append(", dateDebut=").append(dateDebut);
+        sb.append(", dateFin=").append(dateFin);
+        sb.append(", numChambre=").append(numChambre);
+        sb.append('}');
+        return sb.toString();
     }
 }
