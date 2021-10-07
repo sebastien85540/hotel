@@ -20,7 +20,7 @@ public class LoginAPIController {
 
     @PostMapping(path = "", produces = "application/json")
     ResponseEntity<Admin> checkLogin(@RequestBody Admin user){
-        System.out.println(user.getUserName());
+
         try {
             Admin admin = adminRepositories.findByUsername(user.getUserName());
             admin.setPassword("");
