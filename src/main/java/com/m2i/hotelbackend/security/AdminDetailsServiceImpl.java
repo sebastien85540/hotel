@@ -16,7 +16,7 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Admin admin = adminRepositories.findByUsername(s);
+        Admin admin = adminRepositories.findByUserName(s);
         if (admin == null){
             throw new UsernameNotFoundException("No User named " + s);
         } else {

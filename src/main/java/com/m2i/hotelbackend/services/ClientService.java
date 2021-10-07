@@ -11,10 +11,6 @@ public class ClientService {
     @Autowired
     private final ClientRepositories clientRepositories;
 
-    /**
-     * Constructeur surchargé avec le clientRepositories
-     * @param clientRepositories
-     */
     public ClientService(ClientRepositories clientRepositories) {
         this.clientRepositories = clientRepositories;
     }
@@ -24,7 +20,7 @@ public class ClientService {
         if (search == null || search.length() == 0){
             return clientRepositories.findAll();
         } else {
-            return clientRepositories.findByNomContainsOrEmailContains( search , search );
+            return clientRepositories.findByNomCompletContainsOrEmailContains( search , search );
         }
     }
 
