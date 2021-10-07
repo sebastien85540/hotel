@@ -51,14 +51,38 @@ public class ClientService {
     }
 
     public Client find(int id) {
+        return clientRepositories.findById(id).get();
     }
 
     public Client addClient(String nomComplet, String telephone, String email, String adresse) {
+        Client c = new Client();
+        c.setNomComplet(nomComplet);
+        c.setTelephone(telephone);
+        c.setEmail(email);
+        c.setAdresse(adresse);
+        clientRepositories.save(c);
+        return c;
     }
 
     public Client editClient(int id, String nomComplet, String telephone, String email, String adresse) {
+        Client c = clientRepositories.findById(id).get();
+        c.setNomComplet(nomComplet);
+        c.setTelephone(telephone);
+        c.setEmail(email);
+        c.setAdresse(adresse);
+        clientRepositories.save(c);
+        return c;
     }
 
     public void delete(int id) {
+        clientRepositories.deleteById(id);
+    }
+
+    public Client findByEmail(String email){
+        try {
+            return clientRepositories.findByEmail(email);
+        } catch (Exception e){
+            return null;
+        }
     }
 }

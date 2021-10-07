@@ -22,7 +22,7 @@ public class LoginAPIController {
     ResponseEntity<Admin> checkLogin(@RequestBody Admin user){
 
         try {
-            Admin admin = adminRepositories.findByUsername(user.getUserName());
+            Admin admin = adminRepositories.findByUserName(user.getUserName());
             admin.setPassword("");
             return ResponseEntity.ok()
                     .body(admin);
