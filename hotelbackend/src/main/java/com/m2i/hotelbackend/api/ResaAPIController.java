@@ -13,15 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/reservation")
+@RequestMapping("/api/resa")
 public class ResaAPIController {
 
     @Autowired
     ResaService resaService;
 
     @GetMapping(path = "", produces = "application/json")
-    public Iterable<Resa> getAll(HttpServletRequest request){
-        return resaService.getList(request.getParameter("search"));
+    public ResponseEntity<Iterable<Resa>> getAll(HttpServletRequest request){
+        try {
+            return ResponseEntity.ok()
+                    .body(resaService.getList(request.getParameter("")));
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
