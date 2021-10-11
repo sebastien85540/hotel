@@ -16,6 +16,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';// a plugin
 import listPlugin from '@fullcalendar/list';
 import { ResaDetailsComponent } from './resa/resa-details/resa-details.component';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
+import { ClientComponent } from './client/client.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -32,7 +33,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FooterComponent,
     LoginComponent,
     ResaComponent,
-    ResaDetailsComponent
+    ResaDetailsComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

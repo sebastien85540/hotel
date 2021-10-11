@@ -24,7 +24,7 @@ public class ClientAPIController {
         return clientService.getList(request.getParameter("search"));
     }
 
-    @GetMapping(path = "/id", produces = "application/json")
+    @GetMapping(path = "/{id}", produces = "application/json")
     public ResponseEntity<Client> get(@PathVariable("id") int id){
         try {
             Client client = clientService.find(id);
