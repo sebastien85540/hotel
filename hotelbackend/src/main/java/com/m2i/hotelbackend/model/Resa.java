@@ -1,5 +1,7 @@
 package com.m2i.hotelbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -21,9 +23,11 @@ public class Resa {
     private Hotel hotel;
 
     @Column(name = "date_debut", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateDebut;
 
     @Column(name = "date_fin", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateFin;
 
     @Column(name = "num_chambre", nullable = false)

@@ -3,7 +3,7 @@
 
   <h1 class="text-center">Les réservations</h1>
 
-  <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success float-end" (click)="resetForm()">Nouvelle réservation</button>
+  <button data-bs-toggle="modal" data-bs-target="#addResa" class="btn btn-success float-end" (click)="resetForm()">Nouvelle réservation</button>
 
   <div class="row">
     <div class="col-9">
@@ -20,13 +20,12 @@
 <full-calendar class="fullCalendar" [options]="calendarOptions"></full-calendar>
 
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addResa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form name="villeForm" method="POST" (submit)="submitForm()" ngNativeValidate>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ajouter une reservation</h5>
-<!--         <h5 class="modal-title" id="exampleModalLabel">Editer une réservation</h5>-->
+          <h5 class="modal-title">Editer une réservation</h5>
           <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -35,33 +34,40 @@
           </div>
 
           <div class="mb-3">
-            <label for="prenom" class="form-label">Prénom</label>
-            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" required autofocus>
-          </div>
-
-          <div class="mb-3">
-            <label for="nom" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" minlength="2" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email" minlength="2" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="telephone" class="form-label">Téléphone</label>
-            <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Téléphone" minlength="2" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="ville" class="form-label">Ville</label>
-            <select name="ville" id="ville" required class="form-select">
-              <option value="">Sélectionner ville</option>
-              <option *ngFor="" [ngValue]="">
+            <label for="client" class="form-label">Client</label>
+            <select name="client" id="client" required class="form-select" [(ngModel)]="r.client">
+              <option value="">Sélectionner un client</option>
+              <option *ngFor="let c of clients" [ngValue]="c">
+                {{c.nomComplet}}
               </option>
             </select>
           </div>
+
+          <div class="mb-3">
+            <label for="hotel" class="form-label">Hotel</label>
+            <select name="hotel" id="hotel" required class="form-select" [(ngModel)]="r.hotel">
+              <option value="">Sélectionner un hotel</option>
+              <option *ngFor="let h of hotels" [ngValue]="h">
+                {{h.nom}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="dateDebut" class="form-label">Date de debut</label>
+            <input type="datetime-local" class="form-control" id="dateDebut" name="dateDebut" placeholder="date de debut" minlength="2" required [(ngModel)]="r.dateDebut">
+          </div>
+
+          <div class="mb-3">
+            <label for="dateFin" class="form-label">Date de fin</label>
+            <input type="datetime-local" name="dateFin" class="form-control" id="dateFin" placeholder="Date de fin" minlength="2" required required [(ngModel)]="r.dateFin">
+          </div>
+
+          <div class="mb-3">
+            <label for="numChambre" class="form-label">Numéro de chambre</label>
+            <input type="number" class="form-control" id="numChambre" name="numChambre" placeholder="Numéro de chambre" minlength="2" required required [(ngModel)]="r.numChambre">
+          </div>
+
         </div>
         <div class="modal-footer justify-content-between">
           <button type="reset" class="btn btn-danger float-end">Annuler</button>

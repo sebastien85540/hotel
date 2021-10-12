@@ -7,6 +7,10 @@ import {Resa} from "../classes/resa";
 import {ResaService} from "../services/resa.service";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
+import {ClientService} from "../services/client.service";
+import {HotelService} from "../services/hotel.service";
+import {Client} from "../classes/client";
+import {Hotel} from "../classes/hotel";
 
 @Component({
   selector: 'app-resa',
@@ -15,13 +19,15 @@ import {Router} from "@angular/router";
 })
 export class ResaComponent implements OnInit {
   r : Resa = new Resa();
+  reservations : Array<Resa> = [];
+  clients : Array<Client> = [];
+  hotels : Array<Hotel> = [];
   success : boolean = false;
   error : boolean = false;
   search : string = "";
   title = "Réservations";
   @ViewChild( 'closebutton' ) closebuttonelement: any;
-/*  success : boolean = false;
-  error : boolean = false;*/
+
   calendarOptions : CalendarOptions = {
     themeSystem: 'bootstrap',
     headerToolbar: {
@@ -33,13 +39,15 @@ export class ResaComponent implements OnInit {
     navLinks: true,
     eventClick: this.handleEventClick.bind(this)
   }
-  constructor(private httpClient: HttpClient, private rs : ResaService, private router : Router) { }
-
-  onDateClick(res : any) {
-    alert('You clicked on : ' + res.dateStr)
-  }
+  constructor(private httpClient: HttpClient, private rs : ResaService, private router : Router, private cs : ClientService, private hs : HotelService) { }
 
   ngOnInit(): void {
+    this.loadReservations();
+    this.loadClients();
+    this.loadHotels();
+  }
+  loadReservations(): void
+  {
     let tableau :  { title: string | undefined; start: Date | undefined, end: Date | undefined, url: string | undefined}[] = []
     this.rs.loadReservations(this.search).subscribe(
       data => {
@@ -63,12 +71,43 @@ export class ResaComponent implements OnInit {
   resetForm(){
     this.error = false;
     this.success = false;
+    this.r = new Resa();
   }
   loadResa() {
+    this.rs.loadReservations(this.search).subscribe(
+      data => {
+        this.reservations = data;
+      }
+    )
+  }
 
+  loadClients(): void
+  {
+    this.cs.loadClients().subscribe(
+      data => {
+        this.clients = data;
+      }
+    )
+  }
+
+  loadHotels(): void
+  {
+    this.hs.loadHotels().subscribe(
+      data => {
+        this.hotels = data;
+      }
+    )
   }
 
   submitForm() {
-
+    this.rs.addReservation(this.r).subscribe(
+      data => {
+        this.closebuttonelement.nativeElement.click();
+        this.loadReservations();
+        this.success = true;
+      }, error => {
+        this.error = true;
+      }
+    )
   }
 }
