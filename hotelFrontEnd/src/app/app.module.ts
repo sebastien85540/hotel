@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -17,6 +17,7 @@ import listPlugin from '@fullcalendar/list';
 import { ResaDetailsComponent } from './resa/resa-details/resa-details.component';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { ClientComponent } from './client/client.component';
+import { HotelComponent } from './hotel/hotel.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -34,7 +35,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LoginComponent,
     ResaComponent,
     ResaDetailsComponent,
-    ClientComponent
+    ClientComponent,
+    HotelComponent
   ],
   imports: [
     BrowserModule,

@@ -5,13 +5,14 @@ import {LoginComponent} from "./login/login.component";
 import {ResaComponent} from "./resa/resa.component";
 import {ResaDetailsComponent} from "./resa/resa-details/resa-details.component";
 import {ClientComponent} from "./client/client.component";
+import {HotelComponent} from "./hotel/hotel.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'resa', component: ResaComponent, canActivate: [AuthenticationGuard]},
   {path: 'resa/:id', component: ResaDetailsComponent, canActivate: [AuthenticationGuard]},
   {path: 'client',component: ClientComponent, canActivate: [AuthenticationGuard]},
-  // {path: 'hotel', canActivate: [AuthenticationGuard]},
+  {path: 'hotel',component: HotelComponent, canActivate: [AuthenticationGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 

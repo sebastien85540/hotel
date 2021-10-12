@@ -35,7 +35,7 @@ public class HotelAPIController {
         }
     }
 
-    @PostMapping(path = "/{id}", produces = "application/json")
+    @PostMapping(path = "", produces = "application/json")
     public ResponseEntity<Hotel> add(@RequestBody Hotel hotel){
         try {
             Hotel createHotel = hotelService.addHotel(hotel.getNom(), hotel.getEtoiles(), hotel.getAdresse(), hotel.getTelephone(), hotel.getEmail(), hotel.getVille());

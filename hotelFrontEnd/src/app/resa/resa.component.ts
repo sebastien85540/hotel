@@ -14,10 +14,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./resa.component.css']
 })
 export class ResaComponent implements OnInit {
-  search : string = "";
-  title = "Réservations";
+  r : Resa = new Resa();
   success : boolean = false;
   error : boolean = false;
+  search : string = "";
+  title = "Réservations";
+  @ViewChild( 'closebutton' ) closebuttonelement: any;
+/*  success : boolean = false;
+  error : boolean = false;*/
   calendarOptions : CalendarOptions = {
     themeSystem: 'bootstrap',
     headerToolbar: {
@@ -37,11 +41,10 @@ export class ResaComponent implements OnInit {
 
   ngOnInit(): void {
     let tableau :  { title: string | undefined; start: Date | undefined, end: Date | undefined, url: string | undefined}[] = []
-    this.rs.loadReservations().subscribe(
+    this.rs.loadReservations(this.search).subscribe(
       data => {
         for (let r of data){
           let reservation = {
-            id : r.id,
             title: r.client?.nomComplet,
             start : r.dateDebut,
             end: r.dateFin,

@@ -1,1 +1,70 @@
-<p>resa-details works!</p>
+<main class="container mt-5" *ngFor="let r of reservations">
+  <div class="alert alert-success" *ngIf="success">Opération effectuée avec succès</div>
+
+  <h1 class="text-center mb-5 mt-5">Réservation</h1>
+  <p class="mb-5">La réservation N° : {{r.id}} a été faite par {{r.client?.nomComplet}} dans {{r.hotel?.nom}}</p>
+  <p class="mb-5">du {{r.dateDebut | date : 'EEEE dd MMMM yyyy à HH:mm'}} jusqu'au {{r.dateFin | date : 'EEEE dd MMMM yyyy à HH:mm'}}</p>
+  <p class="mb-5">La chambre réservée est la chambre N° : {{r.numChambre}}</p>
+
+  <button class="btn btn-primary" (click)="edit(r.id)" data-bs-toggle="modal" data-bs-target="#editResa">Editer</button>
+  <button class="btn btn-danger" (click)="delete(r.id)">Supprimer</button>
+</main>
+
+<div class="modal fade" id="editResa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form name="villeForm" method="POST" (submit)="submitForm()" ngNativeValidate>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editer une réservation</h5>
+          <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="alert alert-danger" *ngIf="error">Une erreur est survenue, veuillez vérifier votre saisie
+          </div>
+
+          <div class="mb-3">
+            <label for="client" class="form-label">Client</label>
+            <select name="client" id="client" required class="form-select" [(ngModel)]="resa.client">
+              <option value="">Sélectionner un client</option>
+              <option *ngFor="let c of clients" [ngValue]="c">
+                {{c.nomComplet}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="hotel" class="form-label">Hotel</label>
+            <select name="hotel" id="hotel" required class="form-select" [(ngModel)]="resa.hotel">
+              <option value="">Sélectionner un hotel</option>
+              <option *ngFor="let h of hotels" [ngValue]="h">
+                {{h.nom}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="dateDebut" class="form-label">Date de debut</label>
+            <input type="datetime-local" class="form-control" id="dateDebut" name="dateDebut" placeholder="date de debut" minlength="2" required [(ngModel)]="resa.dateDebut">
+          </div>
+
+          <div class="mb-3">
+            <label for="dateFin" class="form-label">Date de fin</label>
+            <input type="datetime-local" name="dateFin" class="form-control" id="dateFin" placeholder="Date de fin" minlength="2" required required [(ngModel)]="resa.dateFin">
+          </div>
+
+          <div class="mb-3">
+            <label for="numChambre" class="form-label">Numéro de chambre</label>
+            <input type="number" class="form-control" id="numChambre" name="numChambre" placeholder="Numéro de chambre" minlength="2" required required [(ngModel)]="resa.numChambre">
+          </div>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="reset" class="btn btn-danger float-end">Annuler</button>
+          <button type="submit" class="btn btn-secondary" id="submitbtn">Valider</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
